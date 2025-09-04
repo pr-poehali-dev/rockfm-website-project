@@ -16,9 +16,9 @@ const Index = () => {
   };
   
   const playlists = [
-    { name: 'Heavy Metal Classics', tracks: 45, image: '/img/5f61f2cb-5fa3-4ddd-9158-09122c0c618e.jpg' },
-    { name: 'Rock Anthems', tracks: 32, image: '/img/5f61f2cb-5fa3-4ddd-9158-09122c0c618e.jpg' },
-    { name: 'Underground Metal', tracks: 28, image: '/img/5f61f2cb-5fa3-4ddd-9158-09122c0c618e.jpg' }
+    { name: 'Heavy Metal Classics', tracks: 45, image: '/img/a20e4a25-be68-4210-9fa1-a803b0c5faff.jpg' },
+    { name: 'Rock Anthems', tracks: 32, image: '/img/a20e4a25-be68-4210-9fa1-a803b0c5faff.jpg' },
+    { name: 'Underground Metal', tracks: 28, image: '/img/a20e4a25-be68-4210-9fa1-a803b0c5faff.jpg' }
   ];
   
   const interviews = [
@@ -28,12 +28,12 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-rock-black text-rock-white">
       {/* Header */}
       <header className="border-b border-rock-gray p-6">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <img src="/img/5f61f2cb-5fa3-4ddd-9158-09122c0c618e.jpg" alt="Rock FM" className="w-12 h-12 rounded" />
+            <img src="/img/a20e4a25-be68-4210-9fa1-a803b0c5faff.jpg" alt="Rock FM" className="w-12 h-12 rounded" />
             <div>
               <h1 className="text-3xl font-bold rock-title text-rock-red">ROCK FM</h1>
               <p className="text-rock-gray rock-text">Только рок, только хардкор</p>
@@ -61,9 +61,9 @@ const Index = () => {
             <CardHeader className="text-center">
               <div className="flex items-center justify-center space-x-2 mb-2">
                 <div className="w-3 h-3 bg-rock-red rounded-full animate-pulse"></div>
-                <Badge variant="destructive" className="bg-rock-red">В ЭФИРЕ</Badge>
+                <Badge variant="destructive" className="bg-rock-red text-rock-white">В ЭФИРЕ</Badge>
               </div>
-              <CardTitle className="rock-title text-2xl text-white">
+              <CardTitle className="rock-title text-2xl text-rock-white">
                 {currentTrack.artist} - {currentTrack.song}
               </CardTitle>
               <p className="text-rock-gray rock-text">{currentTrack.album}</p>
@@ -75,13 +75,13 @@ const Index = () => {
                   <Button
                     variant={isPlaying ? "secondary" : "default"}
                     size="lg"
-                    className="bg-rock-red hover:bg-red-700 text-white px-8"
+                    className="bg-rock-red hover:bg-red-700 text-rock-white px-8"
                     onClick={() => setIsPlaying(!isPlaying)}
                   >
                     <Icon name={isPlaying ? "Pause" : "Play"} className="mr-2" />
                     {isPlaying ? "Пауза" : "Слушать"}
                   </Button>
-                  <Button variant="outline" size="lg" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-white">
+                  <Button variant="outline" size="lg" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-rock-white">
                     <Icon name="Volume2" className="mr-2" />
                     {volume}%
                   </Button>
@@ -114,11 +114,11 @@ const Index = () => {
               <Card key={index} className="bg-rock-dark-gray border-rock-gray hover:border-rock-red transition-colors">
                 <CardHeader>
                   <img src={playlist.image} alt={playlist.name} className="w-full h-48 object-cover rounded-lg mb-4" />
-                  <CardTitle className="rock-text text-white">{playlist.name}</CardTitle>
+                  <CardTitle className="rock-text text-rock-white">{playlist.name}</CardTitle>
                   <p className="text-rock-gray rock-text">{playlist.tracks} треков</p>
                 </CardHeader>
                 <CardContent>
-                  <Button className="w-full bg-rock-red hover:bg-red-700 text-white rock-text">
+                  <Button className="w-full bg-rock-red hover:bg-red-700 text-rock-white rock-text">
                     <Icon name="Play" className="mr-2" />
                     Слушать
                   </Button>
@@ -141,10 +141,10 @@ const Index = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-xl font-bold rock-text text-white">Интервью с {interview.artist}</h3>
+                      <h3 className="text-xl font-bold rock-text text-rock-white">Интервью с {interview.artist}</h3>
                       <p className="text-rock-gray rock-text">{interview.date} • {interview.duration}</p>
                     </div>
-                    <Button variant="outline" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-white">
+                    <Button variant="outline" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-rock-white">
                       <Icon name="Play" className="mr-2" />
                       Слушать
                     </Button>
@@ -170,14 +170,14 @@ const Index = () => {
                     <div className="flex items-center space-x-3">
                       <Icon name="Phone" className="text-rock-red" />
                       <div>
-                        <p className="font-bold rock-text text-white">Студия</p>
+                        <p className="font-bold rock-text text-rock-white">Студия</p>
                         <p className="text-rock-gray rock-text">+7 (495) 123-45-67</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
                       <Icon name="Mail" className="text-rock-red" />
                       <div>
-                        <p className="font-bold rock-text text-white">Email</p>
+                        <p className="font-bold rock-text text-rock-white">Email</p>
                         <p className="text-rock-gray rock-text">info@rockfm.ru</p>
                       </div>
                     </div>
@@ -186,14 +186,14 @@ const Index = () => {
                     <div className="flex items-center space-x-3">
                       <Icon name="MapPin" className="text-rock-red" />
                       <div>
-                        <p className="font-bold rock-text text-white">Адрес</p>
+                        <p className="font-bold rock-text text-rock-white">Адрес</p>
                         <p className="text-rock-gray rock-text">Москва, ул. Рок-н-Ролл, 101</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
                       <Icon name="Clock" className="text-rock-red" />
                       <div>
-                        <p className="font-bold rock-text text-white">Эфир</p>
+                        <p className="font-bold rock-text text-rock-white">Эфир</p>
                         <p className="text-rock-gray rock-text">24/7 без перерыва</p>
                       </div>
                     </div>
@@ -205,16 +205,16 @@ const Index = () => {
                 <div className="text-center">
                   <p className="text-rock-gray rock-text mb-4">Следите за нами в соцсетях</p>
                   <div className="flex justify-center space-x-4">
-                    <Button variant="outline" size="icon" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-white">
+                    <Button variant="outline" size="icon" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-rock-white">
                       <Icon name="Facebook" />
                     </Button>
-                    <Button variant="outline" size="icon" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-white">
+                    <Button variant="outline" size="icon" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-rock-white">
                       <Icon name="Instagram" />
                     </Button>
-                    <Button variant="outline" size="icon" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-white">
+                    <Button variant="outline" size="icon" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-rock-white">
                       <Icon name="Youtube" />
                     </Button>
-                    <Button variant="outline" size="icon" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-white">
+                    <Button variant="outline" size="icon" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-rock-white">
                       <Icon name="Twitter" />
                     </Button>
                   </div>

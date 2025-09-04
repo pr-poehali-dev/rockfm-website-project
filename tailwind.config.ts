@@ -64,8 +64,8 @@ export default {
 				},
 				rock: {
 					black: '#000000',
-					red: '#FF0000',
-					gray: '#333333',
+					red: '#DC143C',
+					gray: '#666666',
 					'dark-gray': '#1a1a1a',
 					white: '#FFFFFF'
 				}
