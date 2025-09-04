@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,11 +8,47 @@ import Icon from '@/components/ui/icon';
 const Index = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(75);
+  const [isLoading, setIsLoading] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  
+  const radioStream = 'https://myradio24.org/16454';
+  
+  const togglePlayback = async () => {
+    if (!audioRef.current) return;
+    
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      setIsLoading(true);
+      try {
+        await audioRef.current.play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.error('Ошибка воспроизведения:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+  
+  const handleVolumeChange = (newVolume: number) => {
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume / 100;
+    }
+  };
+  
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume / 100;
+    }
+  }, [volume]);
   
   const currentTrack = {
-    artist: 'Metallica',
-    song: 'Master of Puppets',
-    album: 'Master of Puppets (1986)'
+    artist: 'ROCK FM',
+    song: 'Живой эфир',
+    album: 'myradio24.org'
   };
   
   const playlists = [
@@ -56,12 +92,15 @@ const Index = () => {
             <p className="text-xl text-rock-gray rock-text">В эфире лучшее из мира рока и металла</p>
           </div>
           
+          {/* Audio Element */}
+          <audio ref={audioRef} src={radioStream} preload="none" />
+          
           {/* Live Player */}
           <Card className="max-w-2xl mx-auto bg-rock-dark-gray border-rock-gray">
             <CardHeader className="text-center">
               <div className="flex items-center justify-center space-x-2 mb-2">
                 <div className="w-3 h-3 bg-rock-red rounded-full animate-pulse"></div>
-                <Badge variant="destructive" className="bg-rock-red text-rock-white">В ЭФИРЕ</Badge>
+                <Badge variant="destructive" className="bg-rock-red text-rock-white">{isPlaying ? 'В ЭФИРЕ' : 'НЕ В ЭФИРЕ'}</Badge>
               </div>
               <CardTitle className="rock-title text-2xl text-rock-white">
                 {currentTrack.artist} - {currentTrack.song}
@@ -75,27 +114,48 @@ const Index = () => {
                   <Button
                     variant={isPlaying ? "secondary" : "default"}
                     size="lg"
-                    className="bg-rock-red hover:bg-red-700 text-rock-white px-8"
-                    onClick={() => setIsPlaying(!isPlaying)}
+                    className="bg-rock-red hover:bg-red-700 text-rock-white px-8 disabled:opacity-50"
+                    onClick={togglePlayback}
+                    disabled={isLoading}
                   >
-                    <Icon name={isPlaying ? "Pause" : "Play"} className="mr-2" />
-                    {isPlaying ? "Пауза" : "Слушать"}
+                    {isLoading ? (
+                      <Icon name="Loader2" className="mr-2 animate-spin" />
+                    ) : (
+                      <Icon name={isPlaying ? "Pause" : "Play"} className="mr-2" />
+                    )}
+                    {isLoading ? "Загрузка..." : isPlaying ? "Пауза" : "Слушать"}
                   </Button>
-                  <Button variant="outline" size="lg" className="border-rock-red text-rock-red hover:bg-rock-red hover:text-rock-white">
-                    <Icon name="Volume2" className="mr-2" />
-                    {volume}%
-                  </Button>
+                  <div className="flex items-center space-x-2">
+                    <Icon name="Volume2" className="text-rock-red" />
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={volume}
+                      onChange={(e) => handleVolumeChange(Number(e.target.value))}
+                      className="w-20 accent-rock-red"
+                    />
+                    <span className="text-rock-gray rock-text text-sm w-10">{volume}%</span>
+                  </div>
                 </div>
                 
-                {/* Progress Bar */}
-                <div className="space-y-2">
-                  <div className="w-full bg-rock-gray rounded-full h-2">
-                    <div className="bg-rock-red h-2 rounded-full w-1/3"></div>
-                  </div>
-                  <div className="flex justify-between text-sm text-rock-gray rock-text">
-                    <span>2:15</span>
-                    <span>6:42</span>
-                  </div>
+                {/* Stream Info */}
+                <div className="text-center space-y-2">
+                  <p className="text-rock-gray rock-text text-sm">
+                    🎵 Прямой эфир рок-радиостанции
+                  </p>
+                  {isPlaying && (
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="flex space-x-1">
+                        <div className="w-1 h-4 bg-rock-red animate-pulse" style={{animationDelay: '0ms'}}></div>
+                        <div className="w-1 h-6 bg-rock-red animate-pulse" style={{animationDelay: '150ms'}}></div>
+                        <div className="w-1 h-3 bg-rock-red animate-pulse" style={{animationDelay: '300ms'}}></div>
+                        <div className="w-1 h-5 bg-rock-red animate-pulse" style={{animationDelay: '450ms'}}></div>
+                        <div className="w-1 h-4 bg-rock-red animate-pulse" style={{animationDelay: '600ms'}}></div>
+                      </div>
+                      <span className="text-rock-red rock-text text-sm animate-pulse">Воспроизведение...</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
