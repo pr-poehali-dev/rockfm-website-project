@@ -48,7 +48,7 @@ const Index = () => {
   const currentTrack = {
     artist: 'ROCK FM',
     song: 'Живой эфир',
-    album: 'myradio24.org'
+    album: '24/7 Rock & Metal'
   };
   
   const playlists = [
